@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { UploadCloud } from "lucide-react";
 
 export const FilesDragAndDrop = ({ onUpload }: any) => {
   const drop = useRef<HTMLDivElement>(null);
@@ -32,11 +33,11 @@ export const FilesDragAndDrop = ({ onUpload }: any) => {
 
   return (
     <>
-      <div className="drag-drop-area" ref={drop}>
-        Hey, drop me some files
+      <div className="drag-drop-area space-y-2" ref={drop}>
         <span role="img" aria-label="emoji" className="drag-drop-area__icon">
-          &#128526;
+          <UploadCloud />
         </span>
+        <span className="text-sm">파일을 이곳에 올려놓으세요.</span>
       </div>
     </>
   );

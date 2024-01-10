@@ -9,7 +9,7 @@ const DragAndDropPage = () => {
 
   return (
     <>
-      <div>
+      <div className="h-full w-full flex justify-center pt-8 bg-slate-100">
         <FilesDragAndDrop onUpload={onUpload} />
       </div>
     </>
