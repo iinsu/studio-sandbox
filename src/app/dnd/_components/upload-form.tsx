@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from "react";
 
-export const DragAndDropArea = ({ onUpload, children, count = 1 }: any) => {
+export const UploadForm = ({ onUpload, children, count = 1 }: any) => {
   const drop = useRef<HTMLDivElement>(null);
 
   const handleDragOver = (event: DragEvent) => {

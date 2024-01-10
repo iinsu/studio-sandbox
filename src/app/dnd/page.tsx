@@ -1,7 +1,7 @@
 "use client";
 
 import { FileDropBox } from "./_components/drop-box";
-import { DragAndDropArea } from "./_components/upload-area";
+import { UploadForm } from "./_components/upload-form";
 
 const DragAndDropPage = () => {
   const onUpload = (files: File) => {
@@ -11,9 +11,9 @@ const DragAndDropPage = () => {
   return (
     <>
       <div className="h-full w-full flex justify-center pt-8 bg-slate-100">
-        <FileDropBox onUpload={onUpload} count={2}>
-          <FilesDragAndDrop />
-        </FileDropBox>
+        <UploadForm onUpload={onUpload} count={2}>
+          <FileDropBox />
+        </UploadForm>
       </div>
     </>
   );
