@@ -1,6 +1,6 @@
 import { UploadCloud } from "lucide-react";
 
-export const FilesDragAndDrop = () => {
+export const FileDropBox = () => {
   return (
     <>
       <div className="drag-drop-area space-y-2">
