@@ -1,3 +1,5 @@
+"use client";
+
 import { FilesDragAndDrop } from "./_components/drag-n-drop";
 
 const DragAndDropPage = () => {
