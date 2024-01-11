@@ -1,9 +1,12 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import { DraggingBox } from "./dragging-box";
 
 export const UploadForm = ({ onUpload, children, count = 1, formats }: any) => {
-  const drop = useRef<HTMLDivElement>(null);
+  const dropRef = useRef<HTMLDivElement>(null);
+  const dragRef = useRef<HTMLDivElement>(null);
+  const [isDragging, setIsDragging] = useState(false);
 
   const handleDragOver = (event: DragEvent) => {
     event.preventDefault();
@@ -13,6 +16,7 @@ export const UploadForm = ({ onUpload, children, count = 1, formats }: any) => {
   const handleDrop = (event: DragEvent) => {
     event.preventDefault();
     event.stopPropagation();
+    setIsDragging(false);
 
     const result = event.dataTransfer;
 
@@ -46,19 +50,48 @@ export const UploadForm = ({ onUpload, children, count = 1, formats }: any) => {
     onUpload(result.files);
   };
 
+  const handleDragEnter = (event: DragEvent) => {
+    event.preventDefault();
+    event.stopPropagation();
+
+    if (event.target !== dragRef.current) {
+      setIsDragging(true);
+    }
+  };
+
+  const handleDragLeave = (event: DragEvent) => {
+    event.preventDefault();
+    event.stopPropagation();
+
+    if (event.target === dragRef.current) {
+      setIsDragging(false);
+    }
+  };
+
   useEffect(() => {
-    drop.current?.addEventListener("dragover", handleDragOver);
-    drop.current?.addEventListener("drop", handleDrop);
+    dropRef.current?.addEventListener("dragover", handleDragOver);
+    dropRef.current?.addEventListener("drop", handleDrop);
+    dropRef.current?.addEventListener("dragenter", handleDragEnter);
+    dropRef.current?.addEventListener("dragleave", handleDragLeave);
 
     return () => {
-      drop.current?.removeEventListener("dragover", handleDragOver);
-      drop.current?.removeEventListener("drop", handleDrop);
+      dropRef.current?.removeEventListener("dragover", handleDragOver);
+      dropRef.current?.removeEventListener("drop", handleDrop);
+      dropRef.current?.removeEventListener("dragenter", handleDragEnter);
+      dropRef.current?.removeEventListener("dragleave", handleDragLeave);
     };
   }, []);
 
   return (
     <>
-      <div ref={drop}>{children}</div>
+      <div ref={dropRef} className="relative w-[300px] h-[200px] flex">
+        {isDragging && (
+          <div ref={dragRef}>
+            <DraggingBox />
+          </div>
+        )}
+        {children}
+      </div>
     </>
   );
 };
