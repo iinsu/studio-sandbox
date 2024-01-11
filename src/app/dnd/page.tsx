@@ -11,7 +11,7 @@ const DragAndDropPage = () => {
   return (
     <>
       <div className="h-full w-full flex justify-center pt-8 bg-slate-100">
-        <UploadForm onUpload={onUpload} count={2}>
+        <UploadForm onUpload={onUpload} count={2} formats={["pdf", "png"]}>
           <FileDropBox />
         </UploadForm>
       </div>
