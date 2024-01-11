@@ -1,12 +1,47 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { DraggingBox } from "./dragging-box";
+import { BoxOverlay } from "./box-overlay";
+
+interface MessageProps {
+  show: boolean;
+  text: string;
+  type: string;
+}
+
+interface MessageViewProps {
+  text: string;
+  type: string;
+  timeout?: number;
+}
 
 export const UploadForm = ({ onUpload, children, count = 1, formats }: any) => {
   const dropRef = useRef<HTMLDivElement>(null);
   const dragRef = useRef<HTMLDivElement>(null);
   const [isDragging, setIsDragging] = useState(false);
+  const [message, setMessage] = useState<MessageProps>({
+    show: false,
+    text: "",
+    type: "",
+  });
+
+  const showMessage = ({ text, type, timeout }: MessageViewProps) => {
+    setMessage({
+      show: true,
+      text,
+      type,
+    });
+
+    setTimeout(
+      () =>
+        setMessage({
+          show: false,
+          text: "",
+          type: "",
+        }),
+      timeout ?? 1000
+    );
+  };
 
   const handleDragOver = (event: DragEvent) => {
     event.preventDefault();
@@ -25,7 +60,11 @@ export const UploadForm = ({ onUpload, children, count = 1, formats }: any) => {
 
     // Props 로 넘어온 Count 보다 등록하려는 파일 개수가 많을 때 처리
     if (count < result.files.length) {
-      console.log(`파일 업로드는 ${count}개만 가능합니다.`);
+      showMessage({
+        text: `파일 업로드는 ${count}개만 가능합니다.`,
+        type: "error",
+        timeout: 2000,
+      });
       return;
     }
 
@@ -43,11 +82,22 @@ export const UploadForm = ({ onUpload, children, count = 1, formats }: any) => {
 
     // 파일이 업로드 가능한 확장자가 아닌경우
     if (filesFormatCheck) {
-      console.log(`업로드 가능한 확장자는 ${formats.join(", ")} 입니다.`);
+      showMessage({
+        text: `업로드 가능한 확장자는 ${formats.join(", ")} 입니다.`,
+        type: "error",
+      });
       return;
     }
 
-    onUpload(result.files);
+    // 파일 업로드
+    onUpload(files);
+
+    // 파일 업로드 성공 시
+    showMessage({
+      text: "파일 업로드에 성공했습니다.",
+      type: "success",
+      timeout: 2000,
+    });
   };
 
   const handleDragEnter = (event: DragEvent) => {
@@ -85,9 +135,10 @@ export const UploadForm = ({ onUpload, children, count = 1, formats }: any) => {
   return (
     <>
       <div ref={dropRef} className="relative w-[300px] h-[200px] flex">
+        {message.show && <BoxOverlay text={message.text} type={message.type} />}
         {isDragging && (
           <div ref={dragRef}>
-            <DraggingBox />
+            <BoxOverlay />
           </div>
         )}
         {children}
