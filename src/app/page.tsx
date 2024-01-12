@@ -1,7 +1,14 @@
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
+
 export default function Home() {
   return (
     <>
-      <div className="h-full bg-slate-100">Header</div>
+      <div>
+        <Link href="/dnd">
+          <Button variant="link">Drag & Drop</Button>
+        </Link>
+      </div>
     </>
   );
 }
