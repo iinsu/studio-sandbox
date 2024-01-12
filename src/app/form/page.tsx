@@ -76,7 +76,7 @@ const HookForm = () => {
               </FormItem>
             )}
           />
-          <div>
+          <div className="bg-red-100 p-1 w-[500px] h-[300px] overflow-auto">
             {fields.map((field, index) => (
               <FormField
                 control={form.control}
@@ -98,14 +98,18 @@ const HookForm = () => {
                 )}
               />
             ))}
+          </div>
+          <div className="flex space-x-2 mt-2">
             <Button
               type="button"
               variant="outline"
               size="sm"
-              className="mt-2"
               onClick={() => append({ value: "" })}
             >
               Add URL
+            </Button>
+            <Button type="submit" size="sm">
+              Update
             </Button>
           </div>
         </form>
