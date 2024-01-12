@@ -104,7 +104,7 @@ export const UploadForm = ({ onUpload, children, count = 1, formats }: any) => {
     event.preventDefault();
     event.stopPropagation();
 
-    if (event.target !== dragRef.current) {
+    if (event.target !== dragRef.current?.childNodes[0]) {
       setIsDragging(true);
     }
   };
@@ -113,7 +113,7 @@ export const UploadForm = ({ onUpload, children, count = 1, formats }: any) => {
     event.preventDefault();
     event.stopPropagation();
 
-    if (event.target === dragRef.current) {
+    if (event.target === dragRef.current?.childNodes[0]) {
       setIsDragging(false);
     }
   };
@@ -134,7 +134,7 @@ export const UploadForm = ({ onUpload, children, count = 1, formats }: any) => {
 
   return (
     <>
-      <div ref={dropRef} className="relative w-[300px] h-[200px] flex">
+      <div ref={dropRef} className="relative w-[300px] h-[200px]">
         {message.show && <BoxOverlay text={message.text} type={message.type} />}
         {isDragging && (
           <div ref={dragRef}>
