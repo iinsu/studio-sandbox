@@ -8,6 +8,9 @@ export default function Home() {
         <Link href="/dnd">
           <Button variant="link">Drag & Drop</Button>
         </Link>
+        <Link href="/form">
+          <Button variant="link">Hook Form</Button>
+        </Link>
       </div>
     </>
   );
