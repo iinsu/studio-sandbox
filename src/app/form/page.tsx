@@ -15,6 +15,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import * as z from "zod";
+import { UserNameField } from "./_components/user-name";
 
 const sampleFormSchema = z.object({
   username: z.string(),
@@ -25,7 +26,7 @@ const sampleFormSchema = z.object({
   ),
 });
 
-type SampleFormValues = z.infer<typeof sampleFormSchema>;
+export type SampleFormValues = z.infer<typeof sampleFormSchema>;
 
 const defaultValues: Partial<SampleFormValues> = {
   username: "Sample",
@@ -59,23 +60,7 @@ const HookForm = () => {
     <>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
-          <FormField
-            control={form.control}
-            name="username"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Username</FormLabel>
-                <FormControl>
-                  <Input {...field} />
-                </FormControl>
-                <FormDescription>
-                  This is your public display name. It can be your real name or
-                  a pseudonym. You can only change this once every 30 days.
-                </FormDescription>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+          <UserNameField form={form} />
           <div className="bg-red-100 p-1 w-[500px] h-[300px] overflow-auto">
             {fields.map((field, index) => (
               <FormField
