@@ -11,6 +11,9 @@ export default function Home() {
         <Link href="/form">
           <Button variant="link">Hook Form</Button>
         </Link>
+        <Link href="/virtual">
+          <Button variant="link">Virtual</Button>
+        </Link>
       </div>
     </>
   );
