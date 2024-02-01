@@ -3,8 +3,9 @@
 import { useRef } from "react";
 import { faker } from "@faker-js/faker";
 import { useVirtualizer } from "@tanstack/react-virtual";
+import { PencilLine } from "lucide-react";
 
-const sentences = new Array(4).fill(true).map(() =>
+const sentences = new Array(100).fill(true).map(() =>
   faker.lorem.sentence({
     min: 20,
     max: 70,
@@ -51,9 +52,40 @@ export const RowVirtualDynamic = () => {
                   ref={virtualizer.measureElement}
                   data-index={virtualRow.index}
                 >
-                  <div className="py-2">
-                    <div>Row {virtualRow.index}</div>
-                    <div>{sentences[virtualRow.index]}</div>
+                  <div className="relative group w-full space-y-0">
+                    <div className="absolute z-30 hidden h-1/2 w-full group-focus-within:flex" />
+                    <label
+                      htmlFor={`${virtualRow.key}`}
+                      className={` grid h-[55px]  transform items-center rounded-r-md transition-all
+                      duration-300 hover:cursor-pointer hover:bg-[#EEF5FF]
+                      group-focus-within:-z-10 group-focus-within:h-[115px] group-focus-within:items-start group-focus-within:text-xs`}
+                    >
+                      <div className="relative flex h-full items-center  rounded-r-md border-t bg-violet-200 px-3 hover:bg-[#EEF5FF] group-focus-within:items-start">
+                        <div className="flex h-5 items-center group-focus-within:mt-[15px]">
+                          <div className="mx-1 w-[4rem] max-w-[4rem] truncate text-xs text-[#475569]">
+                            Row {virtualRow.index}
+                          </div>
+                          <div className="flex max-w-[24rem]">
+                            <span className="truncate">
+                              {sentences[virtualRow.index]}
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </label>
+                    <div className="absolute bottom-[30px] left-[40px] hidden group-focus-within:z-10 group-focus-within:flex">
+                      <PencilLine className="h-4 w-4 text-[#75A1F4]" />
+                    </div>
+
+                    <input
+                      id={`${virtualRow.key}`}
+                      defaultValue={sentences[virtualRow.index]}
+                      className={`
+                        absolute bottom-0 left-6 -z-10 w-[28rem] border-dashed
+                        border-[#E2E8F0] bg-[#F8FAFC] pl-11
+                        opacity-0 transition-opacity duration-700 ease-in focus:bottom-[22px] focus:z-0 focus:opacity-100
+                        `}
+                    />
                   </div>
                 </div>
               ))}
