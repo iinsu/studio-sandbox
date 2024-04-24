@@ -1,7 +1,12 @@
+import { MainComponent } from "@/components/main/test";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
-export default function Home() {
+export default function Home({
+  searchParams,
+}: {
+  searchParams: URLSearchParams;
+}) {
   return (
     <>
       <div>
@@ -14,6 +19,7 @@ export default function Home() {
         <Link href="/virtual">
           <Button variant="link">Virtual</Button>
         </Link>
+        <MainComponent {...searchParams} />
       </div>
     </>
   );
