@@ -1,20 +1,16 @@
 "use client";
 
 import _ from "lodash";
-import { useEffect, useState } from "react";
-import { TestComponent } from "./test";
+import { useState } from "react";
+import { useSearchParams } from "next/navigation";
 
-export const MainComponent = (props: URLSearchParams) => {
-  const [isMounted, setIsMounted] = useState(false);
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
-
-  if (isMounted === false) return <></>;
+export const MainComponent = () => {
+  const searchParams = useSearchParams();
+  console.log("useSearchParams", searchParams.get("test"));
 
   return (
     <>
-      <TestComponent {...props} />
+      <div>Main</div>
     </>
   );
 };

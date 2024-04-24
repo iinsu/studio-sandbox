@@ -1,12 +1,9 @@
 import { MainComponent } from "@/components/main/main";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { Suspense } from "react";
 
-export default function Home({
-  searchParams,
-}: {
-  searchParams: URLSearchParams;
-}) {
+export default function Home() {
   return (
     <>
       <div>
@@ -19,7 +16,9 @@ export default function Home({
         <Link href="/virtual">
           <Button variant="link">Virtual</Button>
         </Link>
-        <MainComponent {...searchParams} />
+        <Suspense>
+          <MainComponent />
+        </Suspense>
       </div>
     </>
   );
