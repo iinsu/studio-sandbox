@@ -1,4 +1,4 @@
-import { MainComponent } from "@/components/main/test";
+import { MainComponent } from "@/components/main/main";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
