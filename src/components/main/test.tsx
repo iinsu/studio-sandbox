@@ -1,14 +1,13 @@
 "use client";
 
-import _ from "lodash";
-import { useSearchParams } from "next/navigation";
+import { useInfo } from "./useInfo";
 
 export const TestComponent = () => {
-  const searchParams = useSearchParams();
-  console.log("useSearchParams", searchParams.get("test"));
+  const info = useInfo();
+  console.log(info);
   return (
     <>
-      <div>Main</div>
+      <div>{info?.id}</div>
     </>
   );
 };
